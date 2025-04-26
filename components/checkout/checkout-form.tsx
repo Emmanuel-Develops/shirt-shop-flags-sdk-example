@@ -193,7 +193,7 @@ export function CheckoutForm() {
               </RadioGroup>
             </div>
 
-            <Button type="submit" className="w-full" onClick={() => setStep(2)}>
+            <Button type="submit" className="w-full">
               Continue to Payment
             </Button>
           </div>
