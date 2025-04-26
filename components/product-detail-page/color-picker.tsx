@@ -5,14 +5,19 @@ import { Radio, RadioGroup } from '@headlessui/react';
 import clsx from 'clsx';
 
 const colors = [
-  { name: 'Black', bgColor: 'bg-gray-900', selectedColor: 'ring-gray-900' },
-  { name: 'White', bgColor: 'bg-white', selectedColor: 'ring-gray-300' },
-  { name: 'Blue', bgColor: 'bg-blue-500', selectedColor: 'ring-blue-500' },
+  { name: 'Black', bgColor: 'bg-gray-900', selectedColor: 'ring-gray-900', price: 2000 },
+  { name: 'White', bgColor: 'bg-white', selectedColor: 'ring-gray-300', price: 2300 },
+  { name: 'Blue', bgColor: 'bg-blue-500', selectedColor: 'ring-blue-500', price: 2250 },
 ];
 
 export function ColorPicker() {
-  const { color, setColor } = useProductDetailPageContext();
+  const { color, setColor, setPrice } = useProductDetailPageContext();
   const selectedColor = colors.find((c) => c.name === color) || colors[0];
+  
+  const handleColorChange = (newColor: typeof selectedColor) => {
+    setColor(newColor.name);
+    setPrice(newColor.price);
+  };
 
   return (
     <div>
@@ -20,7 +25,7 @@ export function ColorPicker() {
       <fieldset aria-label="Choose a color" className="mt-2">
         <RadioGroup
           value={selectedColor}
-          onChange={(newColor) => setColor(newColor.name)}
+          onChange={(newColor) => handleColorChange(newColor)}
           className="flex items-center gap-x-3"
         >
           {colors.map((color) => (

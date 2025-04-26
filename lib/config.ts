@@ -1,0 +1,1 @@
+export const NGN_PRECISION_UNITS = 100;

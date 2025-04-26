@@ -1,11 +1,11 @@
-'use client';
-import { CartItem } from '@/components/utils/cart-types';
-import { ShoppingBagIcon } from '@heroicons/react/24/outline';
-import { colorToImage } from '@/components/utils/images';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { ShoppingCartRemoveButton } from './shopping-cart-remove-button';
-import Link from 'next/link';
+"use client";
+import { CartItem } from "@/components/utils/cart-types";
+import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+import { colorToImage } from "@/components/utils/images";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { ShoppingCartRemoveButton } from "./shopping-cart-remove-button";
+import Link from "next/link";
 
 export function EmptyShoppingCartItem() {
   return (
@@ -17,7 +17,7 @@ export function EmptyShoppingCartItem() {
       transition={{ duration: 0.2 }}
       className="py-6 text-center text-gray-500"
     >
-      Your cart is empty.{' '}
+      Your cart is empty.{" "}
       <Link href="/" className="text-blue-600 hover:text-blue-500">
         Continue shopping
       </Link>
@@ -25,7 +25,13 @@ export function EmptyShoppingCartItem() {
   );
 }
 
-export function ShoppingCartItem({ item }: { item: CartItem }) {
+export function ShoppingCartItem({
+  item,
+  editable = true,
+}: {
+  item: CartItem;
+  editable?: boolean;
+}) {
   return (
     <motion.li
       layout
@@ -53,18 +59,20 @@ export function ShoppingCartItem({ item }: { item: CartItem }) {
         <div>
           <div className="flex justify-between text-base font-medium text-gray-900">
             <h3>Circles T-Shirt</h3>
-            <p className="ml-4">20.00 USD</p>
+            <p className="ml-4">{item.price}</p>
           </div>
           <p className="mt-1 text-sm text-gray-500">
             {item.color}, {item.size}
           </p>
         </div>
-        <div className="flex flex-1 items-end justify-between text-sm">
-          <p className="text-gray-500">Qty {item.quantity}</p>
-          <div className="flex">
-            <ShoppingCartRemoveButton item={item} />
+        {editable && (
+          <div className="flex flex-1 items-end justify-between text-sm">
+            <p className="text-gray-500">Qty {item.quantity}</p>
+            <div className="flex">
+              <ShoppingCartRemoveButton item={item} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </motion.li>
   );

@@ -9,7 +9,7 @@ import { AddToCartButton } from '@/components/product-detail-page/add-to-cart-bu
 
 export function AddToCart() {
   const router = useRouter();
-  const { color, size } = useProductDetailPageContext();
+  const { color, size, price } = useProductDetailPageContext();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export function AddToCart() {
       onClick={async () => {
         setIsLoading(true);
         track('add_to_cart:clicked');
-        await addToCart({ id: 'shirt', color, size, quantity: 1 });
+        await addToCart({ id: 'shirt', color, size, quantity: 1, price });
         router.push('/cart');
       }}
     />

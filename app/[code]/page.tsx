@@ -15,14 +15,14 @@ export default async function Page(props: {
 }) {
   const params = await props.params;
 
-  const showSummerBanner = await showSummerBannerFlag(
-    params.code,
-    productFlags,
-  );
+  // const showSummerBanner = await showSummerBannerFlag(
+  //   params.code,
+  //   productFlags,
+  // );
 
   return (
     <ProductDetailPageProvider>
-      <SummerSale show={showSummerBanner} />
+      {/* <SummerSale show={showSummerBanner} /> */}
       <Main>
         <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
           <ProductHeader />

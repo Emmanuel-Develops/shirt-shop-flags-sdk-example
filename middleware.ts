@@ -5,7 +5,7 @@ import { getStableId } from './lib/get-stable-id';
 import { getCartId } from './lib/get-cart-id';
 
 export const config = {
-  matcher: ['/', '/cart'],
+  matcher: ['/', '/cart', '/checkout'],
 };
 
 export async function middleware(request: NextRequest) {
@@ -13,11 +13,15 @@ export async function middleware(request: NextRequest) {
   const cartId = await getCartId();
   const code = await precompute(productFlags);
 
+  // console.log({ stableId, cartId, code });
+
   // rewrites the request to the variant for this flag combination
   const nextUrl = new URL(
     `/${code}${request.nextUrl.pathname}${request.nextUrl.search}`,
     request.url,
   );
+
+  // console.log(nextUrl.toString())
 
   // Add a header to the request to indicate that the stable id is generated,
   // as it will not be present on the cookie request header on the first-ever request.
