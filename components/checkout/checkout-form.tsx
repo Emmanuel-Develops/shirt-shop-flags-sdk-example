@@ -24,20 +24,35 @@ import { useCheckoutContext } from "../utils/checkout-context";
 export function CheckoutForm() {
   const [step, setStep] = useState(1);
   const [invoice, setInvoice] = useState<Invoice | null>(null);
-  const { totalCost } = useCheckoutContext();
+  const { totalCost, setUserData } = useCheckoutContext();
 
   const [paymentMethod, setPaymentMethod] = useState("mavapay");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget)
+    const firstName = formData.get("first-name") as string;
+    const lastName = formData.get("last-name") as string;
+    const email = formData.get("email") as string;
+    const address = formData.get("address") as string;
+    const city = formData.get("city") as string;
+    const state = formData.get("state") as string;
+    const zip = formData.get("zip") as string;
+    const country = formData.get("country") as string;
+    const phone = formData.get("phone") as string;
+
+    setUserData({
+      firstName,
+      lastName,
+      email,
+      address,
+      city,
+      state,
+      zip,
+      country,
+      phone,
+    });
     setStep(2);
-    // setLoading(true);
-
-    // // Simulate API call
-    // await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    // setLoading(false);
-    // router.push("/checkout/success");
   };
 
   const handlePayment = async () => {
@@ -90,11 +105,11 @@ export function CheckoutForm() {
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="first-name">First Name</Label>
-                <Input id="first-name" placeholder="John" required />
+                <Input id="first-name" name="first-name" placeholder="John" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="last-name">Last Name</Label>
-                <Input id="last-name" placeholder="Doe" required />
+                <Input id="last-name" name="last-name" placeholder="Doe" required />
               </div>
             </div>
 
@@ -102,6 +117,7 @@ export function CheckoutForm() {
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
+                name="email"
                 type="email"
                 placeholder="john.doe@example.com"
                 required
@@ -110,7 +126,7 @@ export function CheckoutForm() {
 
             <div className="space-y-2">
               <Label htmlFor="address">Address</Label>
-              <Input id="address" placeholder="123 Main St" required />
+              <Input id="address" name="address" placeholder="123 Main St" required />
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
