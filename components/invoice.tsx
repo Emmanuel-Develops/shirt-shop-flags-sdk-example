@@ -65,7 +65,6 @@ const Invoice = ({ data, retry }: { data: Invoice | null, retry: () => void }) =
       const countDownInMinutes = Math.floor(countDown / 60);
       const countDownInSeconds = countDown % 60;
       const countDownString = `${countDownInMinutes}:${countDownInSeconds}`;
-      console.log({ countDownString });
       setCountDown(countDownString);
 
       if (countDown < 1) {

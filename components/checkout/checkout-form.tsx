@@ -42,7 +42,6 @@ export function CheckoutForm() {
 
   const handlePayment = async () => {
     const invoice = await handleCreateInvoice(totalCost);
-    console.log("invoice", invoice);
     if (invoice instanceof Error) {
       toast(`error creating invoice: ${invoice.message}`);
       return;
@@ -81,7 +80,7 @@ export function CheckoutForm() {
       </div>
 
       {step === 1 && (
-        // <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <div className="space-y-6">
             <h2 className="text-xl font-semibold flex items-center gap-2">
               <Package className="h-5 w-5" />
@@ -198,7 +197,7 @@ export function CheckoutForm() {
               Continue to Payment
             </Button>
           </div>
-        // </form>
+        </form>
       )}
 
       {step === 2 && (
